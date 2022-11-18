@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/SENLA.iml" filepath="$PROJECT_DIR$/.idea/SENLA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SENLA_TEST_ATM/SENLA_TEST_ATM.iml" filepath="$PROJECT_DIR$/SENLA_TEST_ATM/SENLA_TEST_ATM.iml" />
+    </modules>
+  </component>
+</project>
