@@ -8,25 +8,19 @@ import java.util.List;
 
 public class ReaderFile {
 
-
     public static List<String> sReader() {
         List<String> strings = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader("database.txt")))
         {
             //чтение построчно
             String s;
-            while((s=br.readLine())!=null){
+            while((s=br.readLine())!=null) {
                 strings.add(s);
-
             }
         }
-        catch(IOException ex){
+        catch(IOException ex) {
             System.out.println(ex.getMessage());
         }
         return strings;
     }
-
-
-
-
 }

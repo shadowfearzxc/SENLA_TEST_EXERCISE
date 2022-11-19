@@ -8,13 +8,9 @@ import java.util.Scanner;
 
 public class extraFunctions {
 
-    public static String generalFunctions() {
-        return "\n1)SignIn\n2)Log in \n3)Show rates\n4)Exit\n5)CashOut\n6)Admin panel";
-    }
+    public static String generalFunctions() { return "\n1)Log in \n2)Show rates\n3)CashOut\n4)Exit\n5)Admin panel";}
 
-    public static String clientFunctions(){
-        return "1) Cash out\n2) Show Balance\n3) Log Out\n\n";
-    }
+    public static String clientFunctions(){ return "1)Show Balance\n2)CashOut\n3) Log Out\n\n";}
 
     public static int clientsAmount(){
         return 1;
@@ -26,6 +22,4 @@ public class extraFunctions {
             System.out.println(in.nextLine());
         }
     }
-
-
 }

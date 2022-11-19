@@ -21,8 +21,4 @@ public class StringsParser {
         return users;
 
     }
-
-
-
-
 }
