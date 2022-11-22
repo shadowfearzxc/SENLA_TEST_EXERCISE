@@ -9,9 +9,7 @@ public class WriterFile {
     public static void write(String text, String path){
         if (Objects.equals(path, "CashATM.txt")) {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, false))) {
-                FileWriter fstream1 = new FileWriter(path);// конструктор с одним параметром - для перезаписи
-                BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
-                out1.write("");
+                bw.write("" + text);
             }
 
             catch(IOException ex) {

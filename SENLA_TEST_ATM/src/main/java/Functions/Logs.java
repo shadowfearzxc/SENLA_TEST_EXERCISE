@@ -30,7 +30,7 @@ public class Logs {
                         String MainLog  = "[" + date + "]Пользователь под логином : " + login + " снял с банкомата наличные суммой : " + CashOut;
                         WriterFile.write(MainLog, "logs.txt");
                         String MainCash = ("" + (temp - CashOut));
-                        System.out.println("В банкомате осталось : " + (temp - CashOut));
+                        System.out.println("В банкомате осталось : " + MainCash);
                         WriterFile.write(MainCash, "CashATM.txt");
                 }
         }
