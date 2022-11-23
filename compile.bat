@@ -1,1 +1,0 @@
-javac -d bin -sourcepath src SENLA_TEST_ATM/src/main/java/org/Main/Main.java

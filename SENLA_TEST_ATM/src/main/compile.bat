@@ -1,0 +1,1 @@
+javac -d bin -sourcepath java java/org/Main/Main.java

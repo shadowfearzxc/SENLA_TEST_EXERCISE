@@ -4,12 +4,10 @@ package org.Main;
 import Entities.User;
 import FileManaged.ReaderFile;
 import FileManaged.StringsParser;
-import FileManaged.WriterFile;
 import Functions.Logs;
 import Functions.extraFunctions;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -134,7 +132,7 @@ public class Main {
                 default -> System.out.println("Incorrect... Try again...");
             }
         } while(generalChoice != 2);
-        Main.write(users,"database.txt");
+        Main.write(users, "database.txt");
 
     }
 
