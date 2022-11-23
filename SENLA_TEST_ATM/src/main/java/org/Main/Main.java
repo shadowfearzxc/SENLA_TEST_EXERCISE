@@ -4,6 +4,7 @@ package org.Main;
 import Entities.User;
 import FileManaged.ReaderFile;
 import FileManaged.StringsParser;
+import FileManaged.WriterFile;
 import Functions.Logs;
 import Functions.extraFunctions;
 
@@ -32,68 +33,76 @@ public class Main {
 
                 case 1 -> {
 
-                    User curUser= null;
-                   while(curUser == null) {
-                       System.out.print("Введите ваш логин : "); String login = console.next();
-                       System.out.print("Введите ваш пароль : "); String pass = console.next();
-                       curUser= null;
-                       for(var user : users) {
-                           if (user.getLogin().equals(login) && user.getPassword().equals(pass)) {
-
-                               curUser = user;
-                               int clientChoice;
-                               do {
-
-                                   System.out.println("МЕНЮ :");
-                                   System.out.println(extraFunctions.clientFunctions());
-                                   clientChoice = console.nextInt();
-                                   switch(clientChoice){
-                                       case 1 -> {
-                                           System.out.println(curUser.getMoney() + "$");
-                                       }
-
-                                       case 2 -> {
-                                           System.out.print("Введите количество денег для снятия : ");
-                                           int CashOut = console.nextInt();
-                                           if(CashOut > limitCashOut) {
-                                               System.out.println("error");
-                                           }
-                                           else {
-                                               System.out.println("У вас осталось : " + (Integer.parseInt(curUser.getMoney()) - CashOut));
-                                               String data = String.valueOf(Integer.parseInt(curUser.getMoney()) - CashOut);
-                                               curUser.setMoney(data);
-                                               String rewrite = curUser.getLogin() + " " + curUser.getPassword() + " " + data + " " + curUser.getIsBlocked();
-
-
-                                               Logs.clientCastOutIsSuccess(curUser.getLogin(), CashOut);
-                                           }
-                                       }
-                                         case 3 -> System.out.println("Всего доброго");
-
-                                       case 4 -> {
-                                           System.out.print("Введите количество : "); int cashin = console.nextInt();
-                                           String data = String.valueOf(Integer.parseInt(curUser.getMoney()) + cashin);
-                                           curUser.setMoney(data);
-                                           System.out.println("Ваш баланс : " + curUser.getMoney());
-
-
-                                       }
-
-                                       default -> throw new IllegalStateException("Unexpected value: " + clientChoice);
-                                   }
-                               } while (clientChoice != 3);
-                               //break;
-                           }
+                    User curUser = null;
+                    while(curUser == null) {
+                        System.out.print("Enter your login : "); String login = console.next();
+                        System.out.print("Enter your password : "); String pass = console.next();
+                        for(var user : users) {
+                            if (user.getLogin().equals(login) && user.getPassword().equals(pass)) {
 
 
 
+                                curUser = user;
+                                if(!curUser.getIsBlocked()) {
+                                Logs.logInSuccess(login);
+                                int clientChoice;
+                                do {
 
-                       }
+                                    System.out.println("МЕНЮ :");
+                                    System.out.println(extraFunctions.clientFunctions());
+                                    clientChoice = console.nextInt();
+                                    switch(clientChoice) {
+                                        case 1 -> {
+                                            System.out.println(curUser.getMoney() + "$");
+                                        }
+
+                                        case 3 -> {
+                                            System.out.print("Введите количество денег для снятия : ");
+                                            int temp = Integer.parseInt(curUser.getMoney());
+                                            int CashOut = console.nextInt();
+                                            if (CashOut > limitCashOut) {
+                                                System.out.println("error");
+                                            } else if (CashOut > temp) {
+                                                System.out.println("error");
+                                            } else {
+                                                System.out.println("У вас осталось : " + (Integer.parseInt(curUser.getMoney()) - CashOut));
+                                                String data = String.valueOf(Integer.parseInt(curUser.getMoney()) - CashOut);
+                                                curUser.setMoney(data);
+                                                // String rewrite = curUser.getLogin() + " " + curUser.getPassword() + " " + data + " " + curUser.getIsBlocked();
+
+
+                                                Logs.clientCastOutIsSuccess(curUser.getLogin(), CashOut);
+                                            }
+                                        }
+                                        case 4 -> System.out.println("Всего доброго");
+
+                                        case 2 -> {
+                                            System.out.print("Введите количество : ");
+                                            int cashin = console.nextInt();
+                                            String data = String.valueOf(Integer.parseInt(curUser.getMoney()) + cashin);
+                                            curUser.setMoney(data);
+                                            System.out.println("Ваш баланс : " + curUser.getMoney());
+
+
+                                        }
+
+                                        default -> throw new IllegalStateException("Unexpected value: " + clientChoice);
+                                     }
+                                } while (clientChoice != 4); }
+                                else System.out.println("you are banned");
+                                //break;
+                            }
 
 
 
 
-                   }
+
+                        }
+
+
+
+
+                    }
 
 
 
@@ -101,19 +110,14 @@ public class Main {
 
                 }
 
-                case 2 -> extraFunctions.ShowRates();
+                //extraFunctions.ShowRates();
 
-                case 4 -> {
+                case 2 -> {
                     System.out.println("Всего хорошего");
                 }
 
-                case 3 -> {
-                    System.out.print("Введите ваш логин : "); String login = console.next();
-                    System.out.print("Введите количество денег для снятия : "); int CashOut = console.nextInt();
-                    Logs.clientCastOutIsSuccess(login, CashOut);
-                }
 
-                case 5 -> {
+                case 3 -> {
                     System.out.print("Enter a ALogin : "); String aLogin = console.next();
                     System.out.print("Enter a APassword : "); String aPass = console.next();
                     System.out.print("Enter a APin : "); String aPin = console.next();
@@ -129,16 +133,18 @@ public class Main {
 
                 default -> System.out.println("Incorrect... Try again...");
             }
-        } while(generalChoice != 4);
+        } while(generalChoice != 2);
+        Main.write(users,"database.txt");
 
     }
 
 
-    public static void write(List<String> users, String PATH) {
+    public static void write(List<User> users, String PATH) {
         try{
             FileWriter write = new FileWriter(PATH);
             for(var user : users) {
-                write.write(user);
+                var buff = user.getLogin() + " " + user.getPassword() + " " + user.getName() + " " + user.getSurname() + " " + user.getMoney() + " " + user.getIsBlocked() + "\n";
+                write.write(buff);
             }
             write.close();
         }
@@ -149,10 +155,3 @@ public class Main {
     }
 
 }
-
-
-
-
-
-
-

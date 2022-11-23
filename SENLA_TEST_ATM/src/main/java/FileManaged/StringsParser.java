@@ -14,9 +14,11 @@ public class StringsParser {
             var values = str.split(" ");
             String login = values[0];
             String pass = values[1];
-            String clienCash = values[2];
-            boolean isBlocked = Boolean.parseBoolean(values[3]);
-            users.add(new User(login,pass, clienCash,isBlocked));
+            String name = values[2];
+            String surname = values[3];
+            String clienCash = values[4];
+            boolean isBlocked = Boolean.parseBoolean(values[5]);
+            users.add(new User(login,pass, name, surname, clienCash,isBlocked));
         }
         return users;
 

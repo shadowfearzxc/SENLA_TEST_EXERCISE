@@ -1,0 +1,1 @@
+java -cp "bin" SENLA_TEST_ATM.src.main.java.org.Main.Main
