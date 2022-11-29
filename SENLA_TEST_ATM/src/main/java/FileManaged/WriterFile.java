@@ -27,6 +27,6 @@ public class WriterFile {
                     System.out.println(ex.getMessage());
                 }
         }
-        }
     }
+}
 

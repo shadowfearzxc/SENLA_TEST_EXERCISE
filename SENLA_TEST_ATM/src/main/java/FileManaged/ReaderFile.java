@@ -12,7 +12,6 @@ public class ReaderFile {
         List<String> strings = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader("database.txt")))
         {
-            //чтение построчно
             String s;
             while((s=br.readLine())!=null) {
                 strings.add(s);

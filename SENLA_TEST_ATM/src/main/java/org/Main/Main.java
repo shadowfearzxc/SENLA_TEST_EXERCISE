@@ -16,7 +16,8 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        int limitCashOut = 1000000;
+        int limitCashOut = 100_000_0;
+        int limitCashIn = 100_000_0;
         Scanner console = new Scanner(System.in);
 
         System.out.println("Welcome, this is the ATM  of Alfa Bank");
@@ -38,8 +39,6 @@ public class Main {
                         for(var user : users) {
                             if (user.getLogin().equals(login) && user.getPassword().equals(pass)) {
 
-
-
                                 curUser = user;
                                 if(!curUser.getIsBlocked()) {
                                 Logs.logInSuccess(login);
@@ -50,70 +49,46 @@ public class Main {
                                     System.out.println(extraFunctions.clientFunctions());
                                     clientChoice = console.nextInt();
                                     switch(clientChoice) {
-                                        case 1 -> {
-                                            System.out.println(curUser.getMoney() + "$");
+                                        case 1 ->  System.out.println(curUser.getMoney() + "$");
+
+                                        case 2 -> {
+                                            System.out.print("Введите количество : ");
+                                            int cashIn = console.nextInt();
+                                            if(cashIn > limitCashIn) { System.out.println("Слишком большая сумма для пополнения");}
+                                            else {
+
+                                            String data = String.valueOf(Integer.parseInt(curUser.getMoney()) + cashIn);
+                                            curUser.setMoney(data);
+                                            System.out.println("Ваш баланс : " + curUser.getMoney()); }
                                         }
 
                                         case 3 -> {
                                             System.out.print("Введите количество денег для снятия : ");
                                             int temp = Integer.parseInt(curUser.getMoney());
                                             int CashOut = console.nextInt();
-                                            if (CashOut > limitCashOut) {
+                                            if (CashOut > limitCashOut || CashOut > temp || checkATMCash() < CashOut) {
                                                 System.out.println("error");
-                                            } else if (CashOut > temp) {
-                                                System.out.println("error");
-                                            } else {
+                                            }
+                                            else {
+                                                Logs.clientCastOutIsSuccess(curUser.getLogin(), CashOut);
                                                 System.out.println("У вас осталось : " + (Integer.parseInt(curUser.getMoney()) - CashOut));
                                                 String data = String.valueOf(Integer.parseInt(curUser.getMoney()) - CashOut);
                                                 curUser.setMoney(data);
-                                                // String rewrite = curUser.getLogin() + " " + curUser.getPassword() + " " + data + " " + curUser.getIsBlocked();
-
-
-                                                Logs.clientCastOutIsSuccess(curUser.getLogin(), CashOut);
                                             }
+
+
                                         }
                                         case 4 -> System.out.println("Всего доброго");
-
-                                        case 2 -> {
-                                            System.out.print("Введите количество : ");
-                                            int cashin = console.nextInt();
-                                            String data = String.valueOf(Integer.parseInt(curUser.getMoney()) + cashin);
-                                            curUser.setMoney(data);
-                                            System.out.println("Ваш баланс : " + curUser.getMoney());
-
-
-                                        }
 
                                         default -> throw new IllegalStateException("Unexpected value: " + clientChoice);
                                      }
                                 } while (clientChoice != 4); }
                                 else System.out.println("you are banned");
-                                //break;
                             }
-
-
-
-
-
                         }
-
-
-
-
                     }
-
-
-
-                    //    Logs.logInSuccess(login);
-
                 }
-
-                //extraFunctions.ShowRates();
-
-                case 2 -> {
-                    System.out.println("Всего хорошего");
-                }
-
+                case 2 ->  System.out.println("Всего хорошего");
 
                 case 3 -> {
                     System.out.print("Enter a ALogin : "); String aLogin = console.next();
@@ -149,7 +124,17 @@ public class Main {
         catch(IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
 
+
+    public static int checkATMCash() throws IOException {
+         File file = new File("CashATM.txt");
+         FileReader fr;
+         fr = new FileReader(file);
+         BufferedReader read = new BufferedReader(fr);
+         var buff = read.readLine();
+
+        return Integer.parseInt(buff);
     }
 
 }

@@ -16,9 +16,9 @@ public class StringsParser {
             String pass = values[1];
             String name = values[2];
             String surname = values[3];
-            String clienCash = values[4];
+            String clientCash = values[4];
             boolean isBlocked = Boolean.parseBoolean(values[5]);
-            users.add(new User(login,pass, name, surname, clienCash,isBlocked));
+            users.add(new User(login, pass, name, surname, clientCash, isBlocked));
         }
         return users;
 
