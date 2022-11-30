@@ -54,7 +54,7 @@ public class Main {
                                         case 2 -> {
                                             System.out.print("Введите количество : ");
                                             int cashIn = console.nextInt();
-                                            if(cashIn > limitCashIn) { System.out.println("Слишком большая сумма для пополнения");}
+                                            if(cashIn > limitCashIn || cashIn < 0) { System.out.println("Слишком большая сумма для пополнения, или введено отрицательное число");}
                                             else {
 
                                             String data = String.valueOf(Integer.parseInt(curUser.getMoney()) + cashIn);
@@ -66,7 +66,7 @@ public class Main {
                                             System.out.print("Введите количество денег для снятия : ");
                                             int temp = Integer.parseInt(curUser.getMoney());
                                             int CashOut = console.nextInt();
-                                            if (CashOut > limitCashOut || CashOut > temp || checkATMCash() < CashOut) {
+                                            if (CashOut > limitCashOut || CashOut > temp || checkATMCash() < CashOut || CashOut < 0) {
                                                 System.out.println("error");
                                             }
                                             else {
@@ -80,7 +80,7 @@ public class Main {
                                         }
                                         case 4 -> System.out.println("Всего доброго");
 
-                                        default -> throw new IllegalStateException("Unexpected value: " + clientChoice);
+                                        default -> System.out.println("Incorrect... Try again...");
                                      }
                                 } while (clientChoice != 4); }
                                 else System.out.println("you are banned");
