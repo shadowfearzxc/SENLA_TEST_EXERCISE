@@ -14,6 +14,11 @@ public class Logs {
                 String MainLog = "[" + date + "]Пользователь с номером карточки : " + login + " успешно вошел в банкомат";
                 WriterFile.write(MainLog, "logs.txt");
         }
+        
+        public static void clientCashInIsSuccess(String login, int CashIn) throws IOException {
+                        String MainLog = "[" + date + "]Пользователь с номером карточки : " + login + " пополнил баланс на сумму : " + CashIn;
+                        WriterFile.write(MainLog, "logs.txt");
+        }
         public static void clientCastOutIsSuccess(String login, int CashOut) throws IOException {
 
                 fr2 = new FileReader(file2);
