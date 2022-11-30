@@ -56,7 +56,7 @@ public class Main {
                                             int cashIn = console.nextInt();
                                             if(cashIn > limitCashIn || cashIn < 0) { System.out.println("Слишком большая сумма для пополнения, или введено отрицательное число");}
                                             else {
-
+                                            Logs.clientCashInIsSuccess(curUser.getLogin(), cashIn);
                                             String data = String.valueOf(Integer.parseInt(curUser.getMoney()) + cashIn);
                                             curUser.setMoney(data);
                                             System.out.println("Ваш баланс : " + curUser.getMoney()); }
